@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 
-const SecondQuad = ({ onSelectLog , state}) => {
+const SecondQuad = ({ onSelectLog, state }) => {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,10 +11,10 @@ const SecondQuad = ({ onSelectLog , state}) => {
     const fetchLogs = async () => {
       try {
         const url = `http://localhost:8080/fetch/getLogs?tableName=${state}`;
-        
+
         // Fetch data from the API
         const response = await fetch(url);
-        
+
         // Check if the response is OK (status code 200-299)
         if (!response.ok) {
           throw new Error('Failed to fetch logs');
@@ -22,12 +22,12 @@ const SecondQuad = ({ onSelectLog , state}) => {
 
         // Parse the response as JSON
         const data = await response.json();
-        
+
         // Update the logs state by appending the new logs
         // setLogs((prevLogs) => [...prevLogs, ...data]);
         setError("");
         setLogs(data);
-        
+
       } catch (err) {
         // Set error state if an error occurs
         setError('Failed to fetch logs');
@@ -40,9 +40,9 @@ const SecondQuad = ({ onSelectLog , state}) => {
 
     fetchLogs();  // Call the fetchLogs function
 
-  }, [state]); 
+  }, [state]);
 
- 
+
 
   // const handleScroll = (e) => {
   //   if (e.target.scrollHeight === e.target.scrollTop + e.target.clientHeight) {
@@ -55,10 +55,16 @@ const SecondQuad = ({ onSelectLog , state}) => {
       {loading && <div>Loading logs...</div>}
       {error && <div>{error}</div>}
       <ul>
+        <li style={{ fontWeight:"600" }}>
+          <div>DEVICE</div>
+          <div>STATUS</div>
+          <div>TIMESTAMP</div>
+          <div>NAME</div>
+        </li>
         {logs.map((log) => (
           <li key={log.name} onClick={() => onSelectLog(log)}>
-            <div>Device: {log.ip}</div>
-            <div>Status: {log.status}</div>
+            <div>{log.ip}</div>
+            <div>{log.status}</div>
             <div>{log.timestamp}</div>
             <div>{log.name}</div>
           </li>

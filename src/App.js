@@ -10,26 +10,26 @@ import FruitPicker from './components/FruitPicker';
 
 const App = () => {
   const [selectedDevice, setSelectedDevice] = useState("");
-  const [deviceStatus, setDeviceStatus] = useState({ active: 0, inactive: 0,noStatus: 0});
-  const [states,setStates]=useState([]);
-  const [state,setState]=useState("");
-  const [days,setDays]=useState(1);
+  const [deviceStatus, setDeviceStatus] = useState({ active: 0, inactive: 0, noStatus: 0 });
+  const [states, setStates] = useState([]);
+  const [state, setState] = useState("");
+  const [days, setDays] = useState(1);
 
   useEffect(() => {
     const fetchStates = async () => {
       try {
         // Fetch data from the API
         const response = await fetch("http://localhost:8080/fetch/Tables");
-        
+
         if (!response.ok) {
           console.log("tables fetching failed");
           throw new Error("Network response was not ok");
         }
-        
+
         const parsedData = await response.json();
 
         // Assuming parsedData is an array, update the states
-        console.log(parsedData[0]+" "+parsedData[1])
+        console.log(parsedData[0] + " " + parsedData[1])
         setStates(parsedData);
 
         // Set the first state if available
@@ -44,19 +44,19 @@ const App = () => {
 
     // Call the fetchStates function
     fetchStates();
-  }, []); 
+  }, []);
 
-  const onStateChange= (currState)=>{
-    console.log(currState+" state has been changed");
+  const onStateChange = (currState) => {
+    console.log(currState + " state has been changed");
     setState(currState);
   }
 
   useEffect(() => {
     const fetchAState = async () => {
-      if(state==="")return;
+      if (state === "") return;
       try {
         const responseDeviceData = await fetch(`http://localhost:8080/fetch/getTableData?tableName=${state}`);
-        
+
         if (!responseDeviceData.ok) {
           console.log("no response from table fetch");
           throw new Error("Failed to fetch device data");
@@ -67,7 +67,7 @@ const App = () => {
         setDeviceStatus({
           active: parsedDevicesData.active_devices,
           inactive: parsedDevicesData.inactive_devices,
-          noStatus:parsedDevicesData.no_status_devices
+          noStatus: parsedDevicesData.no_status_devices
         });
       } catch (error) {
         console.error("Error fetching device data:", error);
@@ -93,20 +93,20 @@ const App = () => {
 
   return (
     <div className="dashboard">
-      <SideBar states={states} onStateChange={onStateChange}/>
+      <SideBar states={states} onStateChange={onStateChange} />
       <div className="main-content">
         <div className="quadrant">
           <FirstQuad data={deviceStatus} />
         </div>
         <div className="quadrant">
-          <SecondQuad onSelectLog={handleSelectLog} state={state}/>
+          <SecondQuad onSelectLog={handleSelectLog} state={state} />
         </div>
         <div className="quadrant">
-          <ThirdQuad selectedDevice={selectedDevice} state={state} days={days}/>
+          <ThirdQuad selectedDevice={selectedDevice} state={state} days={days} />
         </div>
-        <FruitPicker handleDaysChanged={handleDaysChanged} />
         <div className="quadrant">
-          <FourthQuad selectedDevice={selectedDevice} state={state} days={days}/>
+          <FruitPicker handleDaysChanged={handleDaysChanged} />
+          <FourthQuad selectedDevice={selectedDevice} state={state} days={days} />
         </div>
       </div>
     </div>
