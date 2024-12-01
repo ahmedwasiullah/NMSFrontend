@@ -1,0 +1,88 @@
+/* src/styles/global.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .dashboard {
+    display: flex;
+  }
+  
+  .sidebar {
+    width: 20%;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    height: 100%; /* Full height sidebar */
+    overflow-y: auto; /* Scrollable if content overflows */
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  
+/* Main content container */
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr; /* First column is 2 times the width of the second column */
+  grid-template-rows: 1fr 1fr;    /* Two equal-height rows */
+  gap: 20px;                      /* Gap between the grid items */
+  margin-left: 20%;                /* Shift the grid to the right by 20% */
+  padding: 20px;                  /* Padding around the main content */
+  height: 150vh;
+}
+
+/* Quadrant styling */
+.quadrant {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+
+  overflow-y: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  /* Set a width to height ratio of 1.5:1 */
+  width: calc(1.48 * 60%); /* Make width 1.5 times the height of the container */
+  height: 70%;            /* Ensure height fills the grid item */
+  
+  /* Optionally, set a max width for the quadrants */
+  max-width: 1200px;
+}
+
+/* Right shift each quadrant by 15% */
+.main-content .quadrant:nth-child(1) {
+  transform: translateX(10%);  /* Shift the first quadrant to the right */
+  height: 45vh;
+}
+
+.main-content .quadrant:nth-child(2) {
+  transform: translateX(15%);  /* Shift the second quadrant to the right */
+  height: 40vh;
+}
+
+.main-content .quadrant:nth-child(3) {
+  transform: translateX(10%);  /* Shift the third quadrant to the right */
+  height: 45vh;
+
+}
+
+.main-content .quadrant:nth-child(4) {
+  transform: translateX(15%);  /* Shift the fourth quadrant to the right */
+  height: 40vh;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .main-content {
+    grid-template-columns: 1fr;   /* Stack the quadrants vertically on small screens */
+    grid-template-rows: repeat(4, 1fr); /* 4 rows for mobile */
+    margin-left: 0;              /* Remove the margin-left on smaller screens */
+  }
+
+  .quadrant {
+    width: 100%;  /* Make the quadrants take full width on smaller screens */
+    transform: none;  /* Remove the right shift on smaller screens */
+  }
+}
+
+  
