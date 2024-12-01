@@ -52,8 +52,6 @@ const SecondQuad = ({ onSelectLog, state }) => {
   // onScroll={handleScroll}
   return (
     <div className="log-list" >
-      {loading && <div>Loading logs...</div>}
-      {error && <div>{error}</div>}
       <ul>
         <li style={{ fontWeight:"600" }}>
           <div>DEVICE</div>
@@ -70,6 +68,8 @@ const SecondQuad = ({ onSelectLog, state }) => {
           </li>
         ))}
       </ul>
+      {loading && <div>Loading logs...</div>}
+      {error && <div>{error}</div>}
     </div>
   );
 };
