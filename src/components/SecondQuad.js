@@ -10,8 +10,12 @@ const SecondQuad = ({ onSelectLog , state}) => {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const url = `http://localhost:8080/fetch/getLogs?tableName=${state}`;
+        setLogs([]);
+        setLoading(true);
+        setError(null);
         
+        const url = `http://localhost:8080/fetch/getLogs?tableName=${state}`;
+      
         // Fetch data from the API
         const response = await fetch(url);
         
@@ -25,7 +29,7 @@ const SecondQuad = ({ onSelectLog , state}) => {
         
         // Update the logs state by appending the new logs
         // setLogs((prevLogs) => [...prevLogs, ...data]);
-        setError("");
+        setError(null);
         setLogs(data);
         
       } catch (err) {
