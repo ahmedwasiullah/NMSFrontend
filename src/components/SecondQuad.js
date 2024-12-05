@@ -1,10 +1,10 @@
 // src/components/LogList.js
 import React, { useState, useEffect } from 'react';
-
+const baseUrl=process.env.REACT_APP_BACKEND_URL;
 
 const dateConverter = (timeStamp) => {
   const date = new Date(timeStamp);
-
+  
   // Format the date to a human-readable format using toLocaleString
   const humanReadableDate = date.toLocaleString('en-IN', {
     year: 'numeric',   // Full year (e.g., 2024)
@@ -28,12 +28,12 @@ const SecondQuad = ({onSelectLog, state }) => {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-
+        if(state==="")return;
         setLogs([]);
         setLoading(true);
         setError(null);
         
-        const url = `http://localhost:8080/fetch/getLogs?tableName=${state}`;
+        const url = `${baseUrl}/fetch/getLogs?tableName=${state}`;
        // Fetch data from the API
         const response = await fetch(url);
 
@@ -87,7 +87,7 @@ const clickedLog=(log)=>{
       <div>NAME</div>
     </li>
     {logs.map((log) => (
-      <li key={log.name} onClick={() => clickedLog(log)}
+      <li key={log.ip} onClick={() => clickedLog(log)}
       className={selectedLog === log ? 'selected' : ''}
       >       
         <div>{log.ip}</div>

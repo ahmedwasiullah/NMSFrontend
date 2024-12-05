@@ -1,6 +1,6 @@
 // src/components/DeviceLogs.js
 import React, { useState, useEffect} from 'react';
-
+const baseUrl=process.env.REACT_APP_BACKEND_URL;
 const dateConverter = (timeStamp) => {
   const date = new Date(timeStamp);
 
@@ -32,10 +32,10 @@ const FourthQuad = ({ selectedDevice,state,days }) => {
     if (selectedDevice) {
       // Construct the API URL
       
-      const url = `http://localhost:8080/fetch/getDeviceLogsByDays?tableName=${state}&name=${selectedDevice}&days=${days}`;
-
+      const url = `${baseUrl}/fetch/getDeviceLogsByDays?tableName=${state}&name=${selectedDevice}&days=${days}`;
+      setLogs([]);
       const fetchDeviceLogs = async () => {
-        setLogs([]);
+        
         try {
           const response = await fetch(url);
           
@@ -72,7 +72,7 @@ const FourthQuad = ({ selectedDevice,state,days }) => {
       <div>NAME</div>
     </li>
     {logs.map((log) => (
-      <li key={log.name} onClick={() => clickedLog(log)}
+      <li key={dateConverter(log.timeStamp)} onClick={() => clickedLog(log)}
       className={selectedLog === log ? 'selected' : ''}
       >       
         <div>{log.ip}</div>

@@ -9,14 +9,14 @@ import FifthQuad from './components/FifthQuad';
 import './styles/global.css';
 import FruitPicker from './components/FruitPicker';
 import ToggleButton from './components/ToggleButton';
-
+const baseUrl=process.env.REACT_APP_BACKEND_URL;
 const App = () => {
   const [selectedDevice, setSelectedDevice] = useState("");
   const [deviceStatus, setDeviceStatus] = useState({ active: 0, inactive: 0,noStatus: 0});
   const [states,setStates]=useState([]);
   const [state,setState]=useState("");
   const [days,setDays]=useState(1);
-  const baseUrl=process.env.REACT_APP_BACKEND_URL;
+
   const [theme, setTheme] = useState("light");
 
   // Function to toggle between 'light' and 'dark' theme
@@ -40,8 +40,8 @@ const App = () => {
     const fetchStates = async () => {
       try {
         // Fetch data from the API
-        const response = await fetch("http://localhost:8080/fetch/Tables");
-        
+        const response = await fetch(`${baseUrl}/fetch/Tables`);
+        // console.log(`${baseUrl}/fetch/Tables is link`);
         if (!response.ok) {
           console.log("tables fetching failed");
           throw new Error("Network response was not ok");
@@ -78,7 +78,8 @@ const App = () => {
       setSelectedDevice("");
       //set the statesnode 
       try {
-        const responseDeviceData = await fetch(`http://localhost:8080/fetch/getTableData?tableName=${state}`);
+        console.log(`state is ${state}`);
+        const responseDeviceData = await fetch(`${baseUrl}/fetch/getTableData?tableName=${state}`);
         
         if (!responseDeviceData.ok) {
           console.log("no response from table fetch");
