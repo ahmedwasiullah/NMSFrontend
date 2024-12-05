@@ -5,8 +5,10 @@ import FirstQuad from './components/FirstQuad';
 import SecondQuad from './components/SecondQuad';
 import ThirdQuad from './components/ThirdQuad';
 import FourthQuad from './components/FourthQuad';
+import FifthQuad from './components/FifthQuad';
 import './styles/global.css';
 import FruitPicker from './components/FruitPicker';
+import ToggleButton from './components/ToggleButton';
 
 const App = () => {
   const [selectedDevice, setSelectedDevice] = useState("");
@@ -14,6 +16,25 @@ const App = () => {
   const [states,setStates]=useState([]);
   const [state,setState]=useState("");
   const [days,setDays]=useState(1);
+  const baseUrl=process.env.REACT_APP_BACKEND_URL;
+  const [theme, setTheme] = useState("light");
+
+  // Function to toggle between 'light' and 'dark' theme
+  const toggleTheme = () => {
+    setTheme(theme==='dark'?'light':'dark');
+    console.log(baseUrl);
+  };
+
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.body.style.backgroundColor = '#333';  // Dark background
+      document.body.style.color = '#E0E0E0';  // Light text
+    } else {
+      document.body.style.backgroundColor = '#fff';  // Light background
+      document.body.style.color = 'black';  // Dark text
+    }
+  }, [theme]);
 
   useEffect(() => {
     const fetchStates = async () => {
@@ -54,6 +75,8 @@ const App = () => {
   useEffect(() => {
     const fetchAState = async () => {
       if(state==="")return;
+      setSelectedDevice("");
+      //set the statesnode 
       try {
         const responseDeviceData = await fetch(`http://localhost:8080/fetch/getTableData?tableName=${state}`);
         
@@ -94,22 +117,36 @@ const App = () => {
   return (
     <div className="dashboard">
       <SideBar states={states} onStateChange={onStateChange}/>
-      <div className="main-content">
-        <div className="quadrant">
+      <ToggleButton theme={theme} toggleTheme={toggleTheme}/>
+     {/* Use the every where now */}
+      <div className={`grids-container`}>
+      <div className= {`main-content-${theme}`}>
+        <div className={`quadrant-${theme}`}>
           <FirstQuad data={deviceStatus} />
         </div>
-        <div className="quadrant">
+        <div className={`quadrant-${theme}`}>
           <SecondQuad onSelectLog={handleSelectLog} state={state}/>
         </div>
-        <div className="quadrant">
-          <ThirdQuad selectedDevice={selectedDevice} state={state} days={days}/>
-        </div>
+      </div>
+
+     <div className={`central-content-${theme}`}>
+     <div className={`quadrant-${theme}`}>
         <FruitPicker handleDaysChanged={handleDaysChanged} />
-        <div className="quadrant">
           <FourthQuad selectedDevice={selectedDevice} state={state} days={days}/>
         </div>
+     </div>
+      <div className={`footer-content-${theme}`}>
+      <div className={`quadrant-${theme}`}>
+          <ThirdQuad selectedDevice={selectedDevice} state={state} days={days}/>
+        </div>
+        <div></div>
+        <div className={`quadrant-${theme}`}>
+          <FifthQuad selectedDevice={selectedDevice} state={state} days={days}/>
+        </div>
+      </div>
       </div>
     </div>
+   
   );
 };
 

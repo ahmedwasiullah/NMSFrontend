@@ -1,10 +1,9 @@
 // src/components/DeviceDetails.js
 import React, { useState, useEffect ,useRef } from 'react';
 import { Pie } from 'react-chartjs-2';
-// Make sure it's correct
 
 
-const ThirdQuad = ({ selectedDevice,state, days}) => {
+const FifthQuad = ({ selectedDevice,state,days }) => {
   const [deviceData, setDeviceData] = useState({
     totalUpTime: 0.0,
     totalDownTime: 0.0,
@@ -43,8 +42,8 @@ const ThirdQuad = ({ selectedDevice,state, days}) => {
 
           // Set the fetched data into state
           setDeviceData({
-            totalUpTime: data.totalUpTime,
-            totalDownTime: data.totalDownTime,
+            totalUpTime: data.totalUpTime/3600,
+            totalDownTime: data.totalDownTime/3600,
             noOfDown: data.noOfDown,
             noOfUp: data.noOfUp
           });  // Set the device data from the fetched data
@@ -63,26 +62,25 @@ const ThirdQuad = ({ selectedDevice,state, days}) => {
 
   if (!selectedDevice) return <div>No device selected</div>;
 
+
   const chartData = {
-    labels: ['No of UP', 'No of Down'],
+    labels: ['Total Uptime', 'Total Downtime'],
     datasets: [
       {
-        data: [deviceData.noOfUp, deviceData.noOfDown],
+        data: [deviceData.totalUpTime.toFixed(0), deviceData.totalDownTime.toFixed(0)],
         backgroundColor: ['#4caf50', '#f44336'],
       },
     ],
   };
 
   return (
-    
     <div>
-
-      <h3 >{selectedDevice} Historical Data of last ({days}) days</h3>
+      <h3 >{selectedDevice} Data In Terms of Hours of past ({days}) days</h3>
       <Pie data={chartData} />
-      <div>Stability of device: {(deviceData.noOfUp*100/(deviceData.noOfUp+deviceData.noOfDown)).toFixed(2)}%</div>
+      <div>Performance: {(deviceData.totalUpTime*100/(deviceData.totalUpTime+deviceData.totalDownTime)).toFixed(2)}%</div>
       {/* <div>Resource Usage: {deviceData.resourceUsage}</div> */}
     </div>
   );
 };
 
-export default ThirdQuad;
+export default FifthQuad;

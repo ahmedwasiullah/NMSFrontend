@@ -3,80 +3,291 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #121212;
+    color: #E0E0E0;
   }
   
   .dashboard {
-    display: flex;
+    display: absolute;
   }
   
   .sidebar {
-    width: 20%;
-    background-color: #333;
-    color: white;
-    padding: 20px;
+    width: 16%;
+    background-color: #1E1E1E;
+    color: #E0E0E0;
+    margin-left: 0;
+    padding: 0px;
     height: 100%; /* Full height sidebar */
     overflow-y: auto; /* Scrollable if content overflows */
     position: fixed;
     top: 0;
     left: 0;
   }
+
+  .grids-container{
+    display: grid;
+    grid-template-columns: 1fr; 
+    grid-template-rows: 1fr 1fr 1fr;
   
+    /* margin-left: %; */
+    padding: 30px;
+    margin-left: 18%;
+    gap: 10px;
+    
+  }
+
+
 /* Main content container */
-.main-content {
+.main-content-dark {
   display: grid;
-  grid-template-columns: 1fr 2fr; /* First column is 2 times the width of the second column */
-  grid-template-rows: 1fr 1fr;    /* Two equal-height rows */
-  gap: 20px;                      /* Gap between the grid items */
-  margin-left: 20%;                /* Shift the grid to the right by 20% */
-  padding: 20px;                  /* Padding around the main content */
-  height: 150vh;
+  background-color: #1E1E1E;
+  grid-template-columns: 1fr 2fr; /* second column is 2 times the width of the first column */
+  grid-template-rows: 1fr;    /* Two equal-height rows */
+  /* gap: 20px;                      Gap between the grid items */
+                  /* Shift the grid to the right by 20% */
+  /* padding: 20px;                  Padding around the main content */
+  /* height: 150vh; */
+}
+
+.main-content-light{
+  background-color: #fff;
+  display: grid;
+  /* background-color: #1E1E1E; */
+  grid-template-columns: 1fr 2fr; /* second column is 2 times the width of the first column */
+  grid-template-rows: 1fr;
+}
+
+.central-content-dark{
+  display: grid;
+  background-color: #1E1E1E;
+
+  grid-template-columns: 1fr; /* second column is 2 times the width of the first column */
+  grid-template-rows: 1fr; 
+  /* margin-left: 19%;                Shift the grid to the right by 20% */
+  
+}
+
+.central-content-light{
+  background-color:#fff;
+  display: grid;
+  /* background-color: #1E1E1E; */
+
+  grid-template-columns: 1fr; /* second column is 2 times the width of the first column */
+  grid-template-rows: 1fr; 
+
+}
+
+.footer-content-dark{
+  display: grid;
+  background-color: #1E1E1E;
+
+  grid-template-columns: 1fr .3fr 1fr; /* second column is 2 times the width of the first column */
+  grid-template-rows: 1fr; 
+  /* margin-left: 17.8%;  */
+  margin-top: 15px;               /* Shift the grid to the right by 20% */
+
+}
+
+.footer-content-light{
+  background-color:#fff;
+  display: grid;
+  /* background-color: #1E1E1E; */
+
+  grid-template-columns: 1fr .3fr 1fr; /* second column is 2 times the width of the first column */
+  grid-template-rows: 1fr; 
+  /* margin-left: 17.8%;  */
+  margin-top: 15px;
 }
 
 /* Quadrant styling */
-.quadrant {
-  background-color: #f4f4f4;
+
+
+
+
+.quadrant-dark {
+  
   padding: 20px;
   border-radius: 8px;
-
+  background-color: #1E1E1E;
   overflow-y: auto;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(31, 25, 97, 0.1);
 
   /* Set a width to height ratio of 1.5:1 */
   width: calc(1.48 * 60%); /* Make width 1.5 times the height of the container */
   height: 70%;            /* Ensure height fills the grid item */
   
   /* Optionally, set a max width for the quadrants */
-  max-width: 1200px;
+  max-width: 1300px;
+}
+
+.quadrant-light{
+  /* background-color: #e6e6e6; */
+  background-color:#fff;
+  padding: 20px;
+  border-radius: 8px;
+  /* background-color: #1E1E1E; */
+  overflow-y: auto;
+  box-shadow: 0 2px 4px rgba(31, 25, 97, 0.1);
+
+  /* Set a width to height ratio of 1.5:1 */
+  width: calc(1.48 * 60%); /* Make width 1.5 times the height of the container */
+  height: 70%;            /* Ensure height fills the grid item */
+  
+  /* Optionally, set a max width for the quadrants */
+  max-width: 1300px;
 }
 
 /* Right shift each quadrant by 15% */
-.main-content .quadrant:nth-child(1) {
-  transform: translateX(10%);  /* Shift the first quadrant to the right */
-  height: 45vh;
+.main-content-dark .quadrant-dark {
+  height: 500px;
+  margin-left: 30px;
 }
 
-.main-content .quadrant:nth-child(2) {
-  transform: translateX(15%);  /* Shift the second quadrant to the right */
-  height: 40vh;
+.central-content-dark .quadrant-dark {
+  height: 500px;
+  margin-left: 30px;
+  width: 92%;
 }
 
-.main-content .quadrant:nth-child(3) {
-  transform: translateX(10%);  /* Shift the third quadrant to the right */
-  height: 45vh;
-
+.footer-content-dark .quadrant-dark{
+  height: 550px;
+  max-width: 500px;
+  margin-left: 30px;
 }
 
-.main-content .quadrant:nth-child(4) {
-  transform: translateX(15%);  /* Shift the fourth quadrant to the right */
-  height: 40vh;
+.main-content-light .quadrant-light {
+  height: 500px;
+  margin-left: 30px;
 }
+
+.central-content-light .quadrant-light {
+  height: 500px;
+  margin-left: 30px;
+  width: 92%;
+}
+
+.footer-content-light .quadrant-light{
+  height: 550px;
+  max-width: 500px;
+  margin-left: 30px;
+}
+
+/* .footer-content .quadrant{
+  height: 550px;
+  max-width: 500px;
+  margin-left: 30px;
+} */
+
+/* .footer-content .quadrant:nth-child(2) {
+   justify-self: end;
+  /* Example background color */
+/* } */ */
+/* .main-content .quadrant:nth-child(2) { */
+  /* justify-self: end; */
+ /* Example background color */
+/* } */
+
+/* .log-list ul li{
+  display: flex;
+  justify-content: start;
+  cursor: pointer;
+  height:20px;
+  font-size: 12px;
+}
+
+.log-list ul li:hover{
+  transition: all 0.4s;
+  background: rgb(233, 233, 233);
+}
+
+.log-list ul li div{
+  padding: 0 30px;
+} */
+
+.log-list {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.log-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.log-list li {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 10px;
+  /* border-bottom: 1px solid #ddd; */
+}
+
+.quadrant-dark .log-list li:hover {
+  background-color: #f5f5; /* Hover effect on rows */
+  cursor: pointer;
+}
+
+.quadrant-light .log-list li:hover {
+  background-color: rgba(245, 240, 245, 0.968); /* Hover effect on rows */
+  cursor: pointer;
+}
+
+
+
+.log-list li:first-child {
+  font-weight: 600; /* Make header bold */
+}
+
+.log-list li.selected {
+  background-color: #a1c6ea;  /* Highlighted row color */
+  color: #fff;                /* Optional: Change text color */
+  font-weight: bold;          /* Optional: Make text bold when selected */
+}
+
+
+.sidebar ul{
+  width: 100%;
+
+}
+.sidebar li{
+  height:40px;
+  width: 100%;
+  padding:10px;
+  margin-bottom:1px;
+}
+
+.sidebar li:hover{
+  height:'20px';
+  width: 100%;
+  padding:'10px';
+  margin-bottom:'1px';
+  background-color: rgba(73, 72, 74, 0.851);
+}
+
+
+
+.sidebar li.selected{
+  background-color: #4A90E2; /* Blue background color */
+  color: white; /* White text */
+  font-weight: bold; /* Bold text */
+}
+
+
+
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
+  .grids-container{
+    grid-template-columns: 1fr;   /* Stack the quadrants vertically on small screens */
+    grid-template-rows: repeat(3, 1fr); /* 4 rows for mobile */
+    margin-left: 10%;
+    padding: auto;
+  }
   .main-content {
     grid-template-columns: 1fr;   /* Stack the quadrants vertically on small screens */
-    grid-template-rows: repeat(4, 1fr); /* 4 rows for mobile */
-    margin-left: 0;              /* Remove the margin-left on smaller screens */
+    grid-template-rows: repeat(2, 1fr); /* 4 rows for mobile */
+    /* margin-left: 0;              Remove the margin-left on smaller screens */
   }
 
   .quadrant {
